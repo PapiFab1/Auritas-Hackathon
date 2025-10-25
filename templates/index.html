@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Auritas Data Visualizer</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Auritas Purchase Order Dashboard</h1>
+    </header>
+
+    <nav id="tabs">
+      <button class="tab active" data-target="header">Header Info</button>
+      <button class="tab" data-target="items">Item Details</button>
+      <button class="tab" data-target="account">Account</button>
+      <button class="tab" data-target="pricing">Pricing</button>
+      <button class="tab" data-target="history">History</button>
+      <button class="tab" data-target="changes">Changes</button>
+      <button class="tab" data-target="notes">Notes</button>
+    </nav>
+
+    <section id="controls">
+      <input
+        type="text"
+        id="search"
+        placeholder="Search PO, Vendor, or Material..."
+      />
+    </section>
+
+    <section id="tables">
+      <div id="header" class="tab-content active">
+        <table id="table-header">
+          <thead>
+            <tr id="header-row-header"></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="items" class="tab-content">
+        <table id="table-items">
+          <thead>
+            <tr id="header-row-items"></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="account" class="tab-content">
+        <table id="table-account">
+          <thead>
+            <tr id="header-row-account"></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="pricing" class="tab-content">
+        <table id="table-pricing">
+          <thead>
+            <tr id="header-row-pricing"></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="history" class="tab-content">
+        <table id="table-history">
+          <thead>
+            <tr id="header-row-history"></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="changes" class="tab-content">
+        <table id="table-changes">
+          <thead>
+            <tr id="header-row-changes"></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="notes" class="tab-content">
+        <table id="table-notes">
+          <thead>
+            <tr id="header-row-notes"></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
