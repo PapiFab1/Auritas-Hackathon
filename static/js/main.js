@@ -80,6 +80,40 @@ function updateTables() {
   });
 }
 
+async function loadDecryptionResults() {
+  const container = document.getElementById("decryptionContainer");
+  container.innerHTML = "<p>Loading decrypted data...</p>";
+
+  try {
+    const res = await fetch("/api/decrypted_results");
+    const json = await res.json();
+
+    if (json.length === 0) {
+      container.innerHTML = "<p>No decrypted files found.</p>";
+      return;
+    }
+
+    container.innerHTML = "";
+
+    json.forEach((file, i) => {
+      const div = document.createElement("div");
+      div.classList.add("decryption-card");
+      div.innerHTML = `
+        <h3>${i + 1}. ${file.filename || "Unknown File"}</h3>
+        <p><b>Records:</b> ${file.record_count || "N/A"}</p>
+        <p><b>Speed:</b> ${file.records_per_sec || "N/A"} rec/sec</p>
+        <p><b>Time:</b> ${file.elapsed_time_sec || "N/A"} sec</p>
+        <p><b>Sample Data:</b></p>
+        <pre>${JSON.stringify(file.parsed_samples?.slice(0, 3) || {}, null, 2)}</pre>
+      `;
+      container.appendChild(div);
+    });
+  } catch (error) {
+    container.innerHTML = `<p style="color:red;">Error loading decrypted data: ${error.message}</p>`;
+  }
+}
+
+
 // Search filter
 document.getElementById("search").addEventListener("input", (e) => {
   const query = e.target.value.toLowerCase();
@@ -92,15 +126,24 @@ document.getElementById("search").addEventListener("input", (e) => {
 });
 
 // Tabs logic
+// Replace your existing tab click handler with this:
 document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => {
+    const targetTab = tab.dataset.target;
+    
     document
       .querySelectorAll(".tab")
       .forEach((t) => t.classList.remove("active"));
     document
       .querySelectorAll(".tab-content")
       .forEach((c) => c.classList.remove("active"));
+    
     tab.classList.add("active");
-    document.getElementById(tab.dataset.target).classList.add("active");
+    document.getElementById(targetTab).classList.add("active");
+    
+    // Load decryption results when decryption tab is clicked
+    if (targetTab === 'decryption') {
+      loadDecryptionResults();
+    }
   });
 });

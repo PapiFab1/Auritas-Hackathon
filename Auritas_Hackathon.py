@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify
 import pandas as pd
 import os
+import json
+
 
 app = Flask(__name__)
 
@@ -152,6 +154,18 @@ def get_data():
         .astype(str)
     )
     return jsonify(cleaned.to_dict(orient="records"))
+
+@app.route("/api/decrypted_results")
+def get_decrypted_results():
+    data_dir = os.path.join(os.getcwd(), "data")
+    files = [f for f in os.listdir(data_dir) if f.endswith(".json")]
+
+    results = []
+    for file in files:
+        with open(os.path.join(data_dir, file), "r", encoding="utf-8") as f:
+            results.append(json.load(f))
+
+    return jsonify(results)
 
 
 # === STEP 5: Run Server ===
