@@ -25,6 +25,34 @@ Total records parsed: 19,495
 Data Types: 6 supported
 Summary report: results\summary_all_files.json
 
+## Our approach and Findings
+Initial Investigation
+
+    Tested standard compression algorithms (GZIP, LZ4, ZSTD) - all failed
+
+    Hex analysis revealed no compression magic bytes
+
+    Discovered files use SAP's proprietary ADK binary format, not conventional compression
+
+Technical Breakthrough
+
+    Built custom ADK segment scanner
+
+    Identified key segment: ID 0065, 585KB at offset 2
+
+    Detected 16-byte repeating patterns indicating fixed-length records
+
+Solution Delivery
+
+    Developed ASCII extraction and field type detection
+
+    Parsed binary data into structured JSON
+
+    Integrated results into web dashboard for visualization
+
+Key Finding: SAP .ARCHIVE files are binary serialization containers, not compressed data - requiring specialized ADK parsing rather than standard decompression.
+
+
 ## Technical Highlights
 
 Advanced Binary Analysis
