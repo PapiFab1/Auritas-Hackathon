@@ -6,6 +6,7 @@ import os
 import string
 import time
 import json
+import glob
 
 
 os.makedirs("results", exist_ok=True)
@@ -274,9 +275,7 @@ def parse_int(data):
 
 # Step 5: Main entry point
 if __name__ == "__main__":
-    import glob
-    import time
-    import json
+    
 
     base_dir = r"algorithms\samples"
     all_files = sorted(glob.glob(os.path.join(base_dir, "*")))
