@@ -19,6 +19,11 @@ tqdm
 ## Run the decoder file
 Run decoder.py and view the results in algorithms/results/ 
 
+## Performance
+Processed 5 files in 0.65 seconds
+Total records parsed: 19,495
+Data Types: 6 supported
+Summary report: results\summary_all_files.json
 
 ## Technical Highlights
 
