@@ -66,7 +66,7 @@ fetch("/api/data")
     filteredData = data;
     updateTables();
   })
-  .catch((err) => console.error("❌ Fetch error:", err));
+  .catch((err) => console.error(" Fetch error:", err));
 
 function updateTables() {
   Object.entries(groupMap).forEach(([id, keys]) => {

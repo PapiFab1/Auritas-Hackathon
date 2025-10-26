@@ -1,0 +1,6 @@
+flask
+pandas
+lz4
+zstandard
+chardet
+tqdm

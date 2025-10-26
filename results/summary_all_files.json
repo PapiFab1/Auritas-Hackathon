@@ -1,7 +1,7 @@
 {
   "total_files": 5,
-  "total_runtime_sec": 0.72,
-  "average_speed_records_per_sec": 28094.23,
+  "total_runtime_sec": 0.67,
+  "average_speed_records_per_sec": 27908.42,
   "total_records_parsed": 19495,
   "files_processed": [
     {
@@ -71,8 +71,8 @@
           "F_000": "490056004500cbbc0000001c32003000"
         }
       ],
-      "elapsed_time_sec": 0.052,
-      "records_per_sec": 19501.209
+      "elapsed_time_sec": 0.066,
+      "records_per_sec": 15602.017
     },
     {
       "filename": "FI_FI_DOCUMNT_20250501_150640_0",
@@ -142,7 +142,7 @@
         }
       ],
       "elapsed_time_sec": 0.085,
-      "records_per_sec": 25843.635
+      "records_per_sec": 25723.928
     },
     {
       "filename": "MM_MM_EKKO_20240624_113031_0",
@@ -211,8 +211,8 @@
           "F_000": "32003000320034003000360032003400"
         }
       ],
-      "elapsed_time_sec": 0.134,
-      "records_per_sec": 33952.638
+      "elapsed_time_sec": 0.136,
+      "records_per_sec": 33373.953
     },
     {
       "filename": "MM_MM_EKKO_20240624_113031_0 1",
@@ -281,8 +281,8 @@
           "F_000": "32003000320034003000360032003400"
         }
       ],
-      "elapsed_time_sec": 0.184,
-      "records_per_sec": 24782.359
+      "elapsed_time_sec": 0.17,
+      "records_per_sec": 26786.686
     },
     {
       "filename": "RETRIEVED_001358-001SD_VBAK_0",
@@ -351,8 +351,8 @@
           "F_000": "32003000320034003000340032003400"
         }
       ],
-      "elapsed_time_sec": 0.197,
-      "records_per_sec": 36391.291
+      "elapsed_time_sec": 0.189,
+      "records_per_sec": 38055.538
     }
   ]
 }

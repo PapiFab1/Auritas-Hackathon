@@ -33,7 +33,7 @@ def find_magic_offset(file_path):
             print(f"Found {comp_type} signature at offset {index} bytes.")
             return comp_type, index
 
-    print("⚠️ No known compression signature found.")
+    print("No known compression signature found.")
     return None, None
 
 # Step X: Detect possible zlib-compressed sub-blocks inside the file
@@ -49,7 +49,7 @@ def find_zlib_blocks(file_path):
         if data[i] == 0x78:  # zlib headers often start with 0x78
             try:
                 test = zlib.decompress(data[i:])
-                print(f"✅ Possible zlib stream found at offset {i}, size {len(test)} bytes.")
+                print(f"Possible zlib stream found at offset {i}, size {len(test)} bytes.")
                 # Optionally save decompressed data for inspection
                 with open("results/zlib_output.bin", "wb") as out:
                     out.write(test)
@@ -57,7 +57,7 @@ def find_zlib_blocks(file_path):
             except:
                 continue
 
-    print("❌ No zlib-compressed blocks found.")
+    print("No zlib-compressed blocks found.")
     return None
 
 # Step Y: Scan for SAP ADK-style segments
@@ -70,14 +70,14 @@ def scan_segments(file_path):
         data = f.read()
 
     i = 0
-    print("🔍 Scanning file for possible ADK segments...")
+    print("Scanning file for possible ADK segments...")
     while i < len(data) - 6:
         seg_id = int.from_bytes(data[i:i+2], 'big')
         seg_len = int.from_bytes(data[i+2:i+6], 'big')
 
         if 10 <= seg_len <= 1_000_000:
             print(f"Segment ID: {seg_id:04X}, Length: {seg_len} bytes, Offset: {i}")
-            # ✅ extract segment automatically
+            # Extract segment automatically
             output_file = extract_segment(file_path, i, 6 + seg_len)
             extract_ascii_from_bin(output_file)
             detect_repeating_patterns(output_file)
@@ -99,8 +99,8 @@ def extract_segment(file_path, offset, length):
     with open(output_name, "wb") as out:
         out.write(segment)
 
-    print(f"✅ Saved {output_name} ({length} bytes)")
-    return output_name  # ✅ make sure this is the LAST LINE
+    print(f"Saved {output_name} ({length} bytes)")
+    return output_name  # Make sure this is the LAST LINE
 
 
 def extract_ascii_from_bin(file_path, min_length=4):
@@ -132,8 +132,8 @@ def extract_ascii_from_bin(file_path, min_length=4):
     with open(output_name, "w", encoding="utf-8") as out:
         out.write("\n".join(results))
 
-    print(f"✅ Extracted {len(results)} text sequences from {file_path}")
-    print(f"📝 Saved to {output_name}")
+    print(f"Extracted {len(results)} text sequences from {file_path}")
+    print(f"Saved to {output_name}")
     return output_name
 
 def detect_repeating_patterns(file_path, window=16, limit=200000):
@@ -143,9 +143,9 @@ def detect_repeating_patterns(file_path, window=16, limit=200000):
     with open(file_path, 'rb') as f:
         data = f.read(limit)
 
-    print(f"🔍 Analyzing first {len(data)} bytes of {file_path} for repeating patterns...")
+    print(f"Analyzing first {len(data)} bytes of {file_path} for repeating patterns...")
 
-    # try window sizes 8–256 bytes
+    # try window sizes 8-256 bytes
     scores = {}
     for w in range(8, 257, 8):
         matches = sum(1 for i in range(0, len(data)-w, w)
@@ -153,7 +153,7 @@ def detect_repeating_patterns(file_path, window=16, limit=200000):
         scores[w] = matches
 
     likely = max(scores, key=scores.get)
-    print(f"📏 Most likely repeating block size: {likely} bytes (possible record length).")
+    print(f"Most likely repeating block size: {likely} bytes (possible record length).")
     return likely
 
 def guess_fields(record_bytes):
@@ -228,10 +228,10 @@ def decompress_file(file_path):
                 elif compression == 'zstd':
                     dctx = zstd.ZstdDecompressor()
                     result = dctx.decompress(compressed_data)
-                print(f"✅ Successfully decompressed with {compression}! Size: {len(result)} bytes.")
+                print(f"Successfully decompressed with {compression}! Size: {len(result)} bytes.")
                 return result
             except Exception as e:
-                print(f"❌ Failed to decompress with {compression}: {e}")
+                print(f"Failed to decompress with {compression}: {e}")
     else:
         print("No valid compression signature detected.")
 
@@ -285,10 +285,10 @@ if __name__ == "__main__":
 
 
     if not all_files:
-        print(f"⚠️ No .ARCHIVE files found in {base_dir}")
+        print(f"No .ARCHIVE files found in {base_dir}")
         exit(0)
 
-    print(f"📁 Found {len(all_files)} archive files to process:\n")
+    print(f"Found {len(all_files)} archive files to process:\n")
     for f in all_files:
         print(f"   • {os.path.basename(f)}")
     print()
@@ -298,7 +298,7 @@ if __name__ == "__main__":
 
     for idx, file_path in enumerate(all_files, start=1):
         print("\n" + "="*70)
-        print(f"🧩 Processing file {idx}/{len(all_files)}: {os.path.basename(file_path)}")
+        print(f"Processing file {idx}/{len(all_files)}: {os.path.basename(file_path)}")
         print("="*70)
 
         start_time = time.time()
@@ -323,7 +323,7 @@ if __name__ == "__main__":
                         data = f.read()
 
         if len(data) == 0:
-            print(f"⚠️ No valid data found for {os.path.basename(file_path)} — skipping.")
+            print(f"No valid data found for {os.path.basename(file_path)} — skipping.")
             continue
 
         record_len = 16
@@ -354,8 +354,8 @@ if __name__ == "__main__":
         with open(json_path, "w", encoding="utf-8") as out:
             json.dump(file_result, out, indent=2, ensure_ascii=False)
 
-        print(f"📝 Results saved to {json_path}")
-        print(f"✅ Parsed {num_records} records in {elapsed:.2f}s ({records_per_sec:.1f}/sec)")
+        print(f"Results saved to {json_path}")
+        print(f"Parsed {num_records} records in {elapsed:.2f}s ({records_per_sec:.1f}/sec)")
         overall_results.append(file_result)
 
     total_elapsed = time.time() - total_start
@@ -375,7 +375,7 @@ if __name__ == "__main__":
     with open(summary_path, "w", encoding="utf-8") as out:
         json.dump(summary, out, indent=2, ensure_ascii=False)
 
-    print("\n🏁 ALL FILES COMPLETE")
-    print(f"🧾 Processed {len(overall_results)} files in {total_elapsed:.2f} seconds")
-    print(f"📈 Total records parsed: {summary['total_records_parsed']:,}")
-    print(f"📝 Summary report: {summary_path}")
+    print("\nALL FILES COMPLETE")
+    print(f"Processed {len(overall_results)} files in {total_elapsed:.2f} seconds")
+    print(f"Total records parsed: {summary['total_records_parsed']:,}")
+    print(f"Summary report: {summary_path}")
